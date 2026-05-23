@@ -7,17 +7,22 @@ import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 
 const app = express();
-const port = process.env.PORT || 4000
+
 connectDB();
 
-const allowedOrigins=[navridhi.vercel.app]
+const allowedOrigins = ["https://navridhi.vercel.app"];
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin: allowedOrigins, credentials:true}))
 
-app.get('/',(req,res)=>res.send("API Working"));
-app.use('/api/auth',authRouter)
-app.use('/api/user',userRouter)
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 
-app.listen(port, ()=> console.log(`Server started on PORT:${port} `));
+app.get('/', (req, res) => res.send("API Working"));
+
+app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
+
+export default app;
